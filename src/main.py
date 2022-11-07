@@ -7,7 +7,7 @@ import os
 import shutil
 
 from cli import parse_args
-from constants import (FLATPAK_APP_ID, LOGO_FILETYPE, LOGO_NAME, LOGO_SIZE,
+from constants import (APP_NAME, FLATPAK_APP_ID, LOGO_FILETYPE, LOGO_NAME, LOGO_SIZE,
                        NOTION_REPACKAGED_ZIP_MD5, NOTION_REPACKAGED_ZIP_URL)
 from desktop_entry import generate_desktop_entry
 from directory import (ASSETS_DIR, BUILD_DIR, DESKTOP_ENTRY_DIR, OUT_DIR,
@@ -38,7 +38,7 @@ with open(f"{BUILD_DIR}/{FLATPAK_APP_ID}.json", "w") as f:
 
 # Desktop Entry
 with open(f"{DESKTOP_ENTRY_DIR}/{FLATPAK_APP_ID}.desktop", "w") as f:
-    f.write(generate_desktop_entry(app_id=FLATPAK_APP_ID))
+    f.write(generate_desktop_entry(app_id=FLATPAK_APP_ID, app_name=APP_NAME))
 shutil.copyfile(f"{ASSETS_DIR}/{LOGO_NAME}",
                 f"{DESKTOP_ENTRY_DIR}/{LOGO_NAME}")
 
