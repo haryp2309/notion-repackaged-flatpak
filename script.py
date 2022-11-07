@@ -3,22 +3,21 @@
 # IMPORTS
 
 import os
-from pathlib import Path
-import zipfile
 import shutil
 import subprocess
+from pathlib import Path
 
 # CONSTANTS
 
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 BUILD_DIR = CURRENT_DIR+"/build"
-SOURCE_DIR = BUILD_DIR+"/source"
 OUT_DIR = BUILD_DIR+"/out"
 
 # CONFIG
 
-NOTION_REPACKAGED_ZIP = CURRENT_DIR+"/notion-app-2.0.18-1.zip"
 FLATPAK_APP_ID = "org.haryp.NotionRepackaged"
+NOTION_REPACKAGED_ZIP_URL = "https://github.com/notion-enhancer/notion-repackaged/releases/download/v2.0.18-1/notion-app-2.0.18-1.zip"
+NOTION_REPACKAGED_ZIP_MD5 = "235f3c20c3c27a63d172b6cbf15c9571"
 
 
 # SETUP
@@ -47,11 +46,11 @@ modules:
       - mkdir -p /app/bin/
       - cp -r ./* /app
       - echo "/app/notion-app --no-sandbox" > /app/bin/notion-app.sh
-      - ls /app/bin/
       - chmod +x /app/bin/notion-app.sh
     sources:
       - type: archive
-        path: "{NOTION_REPACKAGED_ZIP}"
+        url: "{NOTION_REPACKAGED_ZIP_URL}"
+        md5: "{NOTION_REPACKAGED_ZIP_MD5}"
         strip-components: 0
 
 finish-args:
@@ -64,10 +63,10 @@ with open(f"{BUILD_DIR}/{FLATPAK_APP_ID}.yaml", "w") as f:
     f.write(yaml)
 
 
-
 # Run flatpak builder
 
-os.system(f"flatpak-builder --user --install --force-clean  {OUT_DIR} {BUILD_DIR}/{FLATPAK_APP_ID}.yaml")
+os.system(
+    f"flatpak-builder --user --install --force-clean  {OUT_DIR} {BUILD_DIR}/{FLATPAK_APP_ID}.yaml")
 
 # Start Application
 #os.system(f"flatpak run {FLATPAK_APP_ID}")
