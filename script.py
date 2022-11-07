@@ -29,12 +29,6 @@ Path(BUILD_DIR).mkdir()
 
 Path(OUT_DIR).mkdir()
 
-# Extract zip
-
-#with zipfile.ZipFile(NOTION_REPACKAGED_ZIP, 'r') as zip_ref:
-#    zip_ref.extractall(SOURCE_DIR)
-
-subprocess.run(["unzip", NOTION_REPACKAGED_ZIP, "-d", SOURCE_DIR])
 
 # Generate yaml
 
@@ -56,8 +50,10 @@ modules:
       - ls /app/bin/
       - chmod +x /app/bin/notion-app.sh
     sources:
-      - type: dir
-        path: source
+      - type: archive
+        path: "{NOTION_REPACKAGED_ZIP}"
+        strip-components: 0
+
 finish-args:
   - --share=ipc
   - --socket=x11
@@ -74,4 +70,4 @@ with open(f"{BUILD_DIR}/{FLATPAK_APP_ID}.yaml", "w") as f:
 os.system(f"flatpak-builder --user --install --force-clean  {OUT_DIR} {BUILD_DIR}/{FLATPAK_APP_ID}.yaml")
 
 # Start Application
-os.system(f"flatpak run {FLATPAK_APP_ID}")
+#os.system(f"flatpak run {FLATPAK_APP_ID}")
