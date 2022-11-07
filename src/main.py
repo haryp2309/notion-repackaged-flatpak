@@ -7,8 +7,9 @@ import os
 import shutil
 
 from cli import parse_args
-from constants import (APP_NAME, FLATPAK_APP_ID, LOGO_FILETYPE, LOGO_NAME, LOGO_SIZE,
-                       NOTION_REPACKAGED_ZIP_MD5, NOTION_REPACKAGED_ZIP_URL)
+from constants import (APP_NAME, FLATPAK_APP_ID, LOGO_FILETYPE, LOGO_NAME,
+                       LOGO_SIZE, NOTION_REPACKAGED_ZIP_MD5,
+                       NOTION_REPACKAGED_ZIP_URL)
 from desktop_entry import generate_desktop_entry
 from directory import (ASSETS_DIR, BUILD_DIR, DESKTOP_ENTRY_DIR, OUT_DIR,
                        prepare_build_directory)
