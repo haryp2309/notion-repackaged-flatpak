@@ -7,6 +7,7 @@ BUILD_DIR = SOURCE_DIR+"/../build"
 OUT_DIR = BUILD_DIR+"/out"
 DESKTOP_ENTRY_DIR = BUILD_DIR+"/desktop-entry"
 ASSETS_DIR = SOURCE_DIR+"/assets"
+REPO_DIR = BUILD_DIR+"/repo"
 
 
 def prepare_build_directory():

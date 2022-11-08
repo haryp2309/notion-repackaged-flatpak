@@ -12,7 +12,7 @@ from constants import (APP_NAME, FLATPAK_APP_ID, LOGO_FILETYPE, LOGO_NAME,
                        NOTION_REPACKAGED_ZIP_URL)
 from desktop_entry import generate_desktop_entry
 from directory import (ASSETS_DIR, BUILD_DIR, DESKTOP_ENTRY_DIR, OUT_DIR,
-                       prepare_build_directory)
+                       REPO_DIR, prepare_build_directory)
 from flatpak_build import generate_flatpak_build_config
 
 # CLI
@@ -46,7 +46,12 @@ shutil.copyfile(f"{ASSETS_DIR}/{LOGO_NAME}",
 # Run flatpak builder
 if do_install:
     os.system(
-        f"flatpak-builder --user --install --force-clean  {OUT_DIR} {BUILD_DIR}/{FLATPAK_APP_ID}.json")
+        f"flatpak-builder --user --install --force-clean  {OUT_DIR} {BUILD_DIR}/{FLATPAK_APP_ID}.json"
+    )
 else:
     os.system(
-        f"flatpak-builder {OUT_DIR} {BUILD_DIR}/{FLATPAK_APP_ID}.json")
+        f"flatpak-builder --repo={REPO_DIR} --force-clean {OUT_DIR} {BUILD_DIR}/{FLATPAK_APP_ID}.json --verbose"
+    )
+    os.system(
+        f"flatpak build-bundle {REPO_DIR} {BUILD_DIR}/{FLATPAK_APP_ID}.flatpak {FLATPAK_APP_ID} --verbose"
+    )
