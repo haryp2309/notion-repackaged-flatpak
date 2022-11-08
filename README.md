@@ -9,6 +9,12 @@ This project downloads Notion Repackaged and installs it as a flatpak.
 
 ## Installation
 
+### Alternative 1
+
+Download and install via flatpak file. See releases section.
+
+### Alternative 2
+
 1. Clone or download this repo.
 2. `cd` into the root of this project.
 3. Run `./install.sh`.
